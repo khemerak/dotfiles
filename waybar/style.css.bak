@@ -1,0 +1,201 @@
+* {
+    font-family: 'FiraCode Nerd Font', 'Font Awesome', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease; 
+}
+
+window#waybar {
+    background: transparent;
+}
+
+/*
+  --------------------------------------------------
+  THE PILL DESIGN (Applies to all modules)
+  -------------------------------------------------- 
+*/
+#workspaces, #window, #cpu, #memory, #temperature, #backlight, #pulseaudio, #battery, #clock, #tray, #custom-power, #power-profiles-daemon {
+    background-color: #1e1e2e; 
+    color: #cdd6f4; 
+    border-radius: 20px; 
+    padding: 2px 16px;
+    margin: 0;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4); 
+}
+
+/*
+  --------------------------------------------------
+  WORKSPACES
+  -------------------------------------------------- 
+*/
+#workspaces {
+    padding: 2px 8px;
+}
+
+#workspaces button {
+    padding: 0 8px;
+    color: #6c7086;
+    background: transparent;
+    border-radius: 15px;
+}
+
+#workspaces button:hover {
+    color: #cdd6f4;
+}
+
+#workspaces button.active {
+    color: #89b4fa; 
+    background-color: rgba(137, 180, 250, 0.15); 
+    border-radius: 15px;
+}
+
+#workspaces button.urgent {
+    color: #f38ba8; 
+}
+
+/* --------------------------------------------------
+  SPECIFIC MODULE TWEAKS
+  -------------------------------------------------- 
+*/
+#window {
+    color: #89b4fa; 
+    background-color: rgba(137, 180, 250, 0.15); 
+    border-radius: 15px; 
+    padding: 2px 12px;
+    margin-left: 4px; 
+    font-size: 16px; 
+}
+window#waybar.empty #window {
+    background-color: transparent;
+    color: transparent;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+#clock {
+    color: #89dceb; 
+}
+
+#battery.charging, #battery.plugged {
+    color: #a6e3a1; 
+}
+
+#battery.critical:not(.charging) {
+    background-color: #f38ba8; 
+    color: #1e1e2e;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#custom-power {
+    color: #f38ba8;
+    padding: 2px 18px 2px 14px;
+    font-size: 16px;
+}
+
+#custom-power:hover {
+    background-color: #f38ba8;
+    color: #1e1e2e;
+}
+
+#pulseaudio.muted {
+    color: #a6adc8;
+}
+
+#tray {
+    padding: 2px 12px;
+}
+
+/* --------------------------------------------------
+  RIGHT SIDE GROUPS (Seamless Pills)
+  -------------------------------------------------- 
+*/
+#cpu, #memory, #temperature {
+    border-radius: 0;
+    margin: 0;
+    box-shadow: none;
+}
+#cpu { border-top-left-radius: 20px; border-bottom-left-radius: 20px; }
+#temperature { border-top-right-radius: 20px; border-bottom-right-radius: 20px; }
+
+#backlight, #pulseaudio {
+    border-radius: 0;
+    margin: 0;
+    box-shadow: none;
+}
+#backlight { border-top-left-radius: 20px; border-bottom-left-radius: 20px; }
+#pulseaudio { border-top-right-radius: 20px; border-bottom-right-radius: 20px; }
+
+#battery, #power-profiles-daemon {
+    border-radius: 0;
+    margin: 0;
+    box-shadow: none;
+}
+#battery { border-top-left-radius: 20px; border-bottom-left-radius: 20px; }
+#power-profiles-daemon { border-top-right-radius: 20px; border-bottom-right-radius: 20px; padding-left: 0px; }
+
+@keyframes blink {
+    to {
+        background-color: #1e1e2e;
+        color: #f38ba8;
+    }
+}
+
+/* --------------------------------------------------
+   VERTICAL MEDIA BLOCK STYLING
+   -------------------------------------------------- */
+
+#custom-record, #custom-prev, #custom-playpause, #custom-next, #custom-mpris-scroll {
+    background-color: #1e1e2e;
+    color: #cdd6f4;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* --- TOP ROW (Controls) --- */
+#custom-record {
+    border-top-left-radius: 15px;
+    padding: 4px 6px 0px 14px; 
+}
+#custom-prev, #custom-playpause {
+    padding: 4px 6px 0px 6px;
+}
+#custom-next {
+    border-top-right-radius: 15px;
+    padding: 4px 14px 0px 6px;
+}
+
+/* --- BOTTOM ROW (Song Title Scroll) --- */
+#custom-mpris-scroll {
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    padding: 0px 14px 4px 14px; 
+    font-size: 10px; 
+    
+    /* THE MONOSPACE TRICK: Forces equal width for every character so the animation doesn't jitter */
+    font-family: 'FiraCode Nerd Font Mono', 'Font Awesome', monospace; 
+    
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4); 
+}
+
+/* Hover effects for controls */
+#custom-prev:hover, #custom-playpause:hover, #custom-next:hover {
+    color: #89b4fa;
+}
+
+/* Breathing animation on the record icon */
+@keyframes breathe {
+    0% { color: #cdd6f4; }
+    50% { color: #89b4fa; text-shadow: 0 0 5px rgba(137, 180, 250, 0.4); }
+    100% { color: #cdd6f4; }
+}
+#custom-record.Playing {
+    animation-name: breathe;
+    animation-duration: 2s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+}

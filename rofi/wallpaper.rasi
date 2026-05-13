@@ -1,0 +1,68 @@
+configuration {
+    show-icons: true;
+}
+
+window {
+    width: 60%;
+    padding: 20px;
+    border-radius: 15px;
+    background-color: #1e1e2e;
+}
+
+mainbox {
+    background-color: transparent;
+    children: [inputbar, listview];
+    spacing: 15px;
+}
+
+inputbar {
+    background-color: #ffffff0d; /* White with 5% opacity */
+    border-radius: 10px;
+    padding: 10px;
+    children: [prompt, entry];
+}
+
+prompt {
+    text-color: #89b4fa;
+    font: "FiraCode Nerd Font 12";
+    padding: 0 10px 0 0;
+}
+
+entry {
+    text-color: #cdd6f4;
+    placeholder: "Search Wallpapers...";
+}
+
+listview {
+    columns: 4;
+    lines: 3;
+    spacing: 15px;
+    layout: vertical;
+    background-color: transparent;
+}
+
+element {
+    orientation: vertical;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: transparent;
+}
+
+element-icon {
+    size: 200px; /* Thumbnail size */
+    horizontal-align: 0.5;
+    background-color: transparent;
+}
+
+element-text {
+    horizontal-align: 0.5;
+    text-color: #cdd6f4;
+    background-color: transparent;
+    padding: 5px 0 0 0;
+}
+
+element selected {
+    background-color: #89b4fa26; /* Blue with 15% opacity */
+    border: 2px;
+    border-color: #89b4fa;
+}

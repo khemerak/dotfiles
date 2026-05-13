@@ -1,0 +1,218 @@
+* {
+    font-family: 'FiraCode Nerd Font', 'Font Awesome', sans-serif;
+    font-size: 11px; 
+    font-weight: 600;
+    transition: all 0.3s ease; 
+}
+
+window#waybar {
+    background: transparent;
+}
+
+/*
+  --------------------------------------------------
+  THE PILL DESIGN (Semi-transparent Glassmorphism)
+  -------------------------------------------------- 
+*/
+#workspaces, #window, #cpu, #memory, #temperature, #backlight, #pulseaudio, #battery, #clock, #tray, #network, #power-profiles-daemon {
+    background-color: rgba(30, 30, 46, 0.85); /* Catppuccin Mantle with opacity */
+    color: #cdd6f4; 
+    border-radius: 24px; 
+    padding: 4px 16px;
+    margin: 4px 0px;
+    /*box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);*/
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/*
+  --------------------------------------------------
+  WORKSPACES
+  -------------------------------------------------- 
+*/
+#workspaces {
+    padding: 2px 4px;
+}
+
+#workspaces button {
+    padding: 0 6px;
+    color: #6c7086;
+    background: transparent;
+    border-radius: 20px;
+}
+
+#workspaces button:hover {
+    color: #cdd6f4;
+    text-shadow: 0 0 5px rgba(205, 214, 244, 0.5);
+}
+
+#workspaces button.active {
+    color: #1e1e2e; 
+    background-color: #89b4fa; /* Solid blue for active */
+    border-radius: 20px;
+    box-shadow: 0px 2px 5px rgba(137, 180, 250, 0.4);
+}
+
+#workspaces button.urgent {
+    color: #f38ba8; 
+}
+
+/* --------------------------------------------------
+  SPECIFIC MODULE TWEAKS
+  -------------------------------------------------- 
+*/
+#window {
+    color: #89b4fa; 
+    background-color: rgba(30, 30, 46, 0.85); 
+    margin-left: 4px; 
+}
+
+window#waybar.empty #window {
+    background-color: transparent;
+    color: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+#clock {
+    color: #89dceb; 
+    font-weight: 800;
+}
+
+/* Network colors */
+#network {
+    color: #a6e3a1; /* Green when connected */
+    margin-left: 4px;
+}
+#network.disconnected {
+    color: #f38ba8; /* Red when disconnected */
+}
+
+#battery.charging, #battery.plugged {
+    color: #a6e3a1; 
+}
+
+#battery.critical:not(.charging) {
+    background-color: #f38ba8; 
+    color: #1e1e2e;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+/* Accent Power Button */
+#custom-power {
+    background-color: #f38ba8; /* Solid red accent */
+    color: #1e1e2e;
+    border-radius: 24px;
+    padding: 4px 18px 4px 20px;
+    margin: 4px 0px 4px 8px;
+    font-size: 16px;
+    box-shadow: 0px 4px 10px rgba(243, 139, 168, 0.4);
+}
+
+#custom-power:hover {
+    background-color: #eba0ac;
+    /*transform: scale(1.05);*/
+    box-shadow: 0px 4px 12px rgba(235, 160, 172, 0.6);
+}
+
+#pulseaudio.muted {
+    color: #a6adc8;
+}
+
+#tray {
+    padding: 4px 12px;
+    margin-left: 4px;
+}
+
+/* --------------------------------------------------
+  RIGHT SIDE GROUPS (Seamless Pills)
+  -------------------------------------------------- 
+*/
+#cpu, #memory, #temperature {
+    border-radius: 0;
+    margin-left: 0;
+    margin-right: 0;
+    border-left: none;
+    border-right: none;
+}
+#cpu { border-top-left-radius: 24px; border-bottom-left-radius: 24px; border-left: 1px solid rgba(255, 255, 255, 0.05); margin-left: 8px;}
+#temperature { border-top-right-radius: 24px; border-bottom-right-radius: 24px; border-right: 1px solid rgba(255, 255, 255, 0.05); }
+
+#backlight, #pulseaudio {
+    border-radius: 0;
+    margin-left: 0;
+    margin-right: 0;
+    border-left: none;
+    border-right: none;
+}
+#backlight { border-top-left-radius: 24px; border-bottom-left-radius: 24px; border-left: 1px solid rgba(255, 255, 255, 0.05); margin-left: 8px;}
+#pulseaudio { border-top-right-radius: 24px; border-bottom-right-radius: 24px; border-right: 1px solid rgba(255, 255, 255, 0.05); }
+
+#battery, #power-profiles-daemon {
+    border-radius: 0;
+    margin-left: 0;
+    margin-right: 0;
+    border-left: none;
+    border-right: none;
+}
+#battery { border-top-left-radius: 24px; border-bottom-left-radius: 24px; border-left: 1px solid rgba(255, 255, 255, 0.05); margin-left: 8px;}
+#power-profiles-daemon { border-top-right-radius: 24px; border-bottom-right-radius: 24px; border-right: 1px solid rgba(255, 255, 255, 0.05); padding-left: 0px; }
+
+@keyframes blink {
+    to {
+        background-color: #1e1e2e;
+        color: #f38ba8;
+    }
+}
+
+/* --------------------------------------------------
+   MEDIA BLOCK STYLING
+   -------------------------------------------------- */
+
+#custom-record, #custom-prev, #custom-playpause, #custom-next {
+    background-color: rgba(30, 30, 46, 0.85);
+    color: #cdd6f4;
+    margin: 4px 0;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-left: none;
+    border-right: none;
+}
+
+#custom-record {
+    border-top-left-radius: 24px;
+    border-bottom-left-radius: 24px;
+    padding: 4px 8px 4px 16px; 
+    border-left: 1px solid rgba(255, 255, 255, 0.05);
+}
+#custom-prev, #custom-playpause {
+    padding: 4px 8px;
+}
+#custom-next {
+    border-top-right-radius: 24px;
+    border-bottom-right-radius: 24px;
+    padding: 4px 16px 4px 8px;
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Hover effects for controls */
+#custom-prev:hover, #custom-playpause:hover, #custom-next:hover {
+    color: #89b4fa;
+}
+
+/* Breathing animation on the record icon */
+@keyframes breathe {
+    0% { color: #cdd6f4; }
+    50% { color: #89b4fa; text-shadow: 0 0 8px rgba(137, 180, 250, 0.6); }
+    100% { color: #cdd6f4; }
+}
+#custom-record.Playing {
+    animation-name: breathe;
+    animation-duration: 2s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+} 

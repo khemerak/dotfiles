@@ -1,0 +1,217 @@
+// -*- mode: jsonc -*-
+{
+    "layer": "top", 
+    "position": "top", 
+    "margin-top": 8,
+    "margin-left": 5,
+    "margin-right": 5,
+    "spacing": 4, 
+    
+    // Choose the order of the modules
+    "modules-left": [
+        "hyprland/workspaces",
+        "hyprland/window" 
+    ],
+
+    "modules-center": [
+        "clock",
+        "group/media"
+    ],
+
+    "modules-right": [
+        "group/hardware",
+        "group/audio",
+        "group/power",
+        "tray",
+        "custom/power"
+    ],
+
+    // --- RIGHT SIDE GROUPS (Fixes the gaps) ---
+    "group/hardware": {
+        "orientation": "horizontal",
+        "modules": ["cpu", "memory", "temperature"]
+    },
+
+    "group/audio": {
+        "orientation": "horizontal",
+        "modules": ["backlight", "pulseaudio"]
+    },
+
+    "group/power": {
+        "orientation": "horizontal",
+        "modules": ["battery", "power-profiles-daemon"]
+    },
+
+    // --- LEFT MODULES ---
+    "hyprland/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": true,
+        "on-click": "activate",
+        "format": "{name} {icon}", 
+        "format-icons": {
+            "1": " ", 
+            "2": " ", 
+            "3": " ", 
+            "4": " ", 
+            "urgent": " ",
+            "active": " ",
+            "default": " "
+        },
+        "sort-by-number": true
+    },
+    
+    "hyprland/window": {
+        "format": "  {}", 
+        "max-length": 50
+    },
+    
+    "clock": {
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "format-alt": "{:%Y-%m-%d}"
+    },
+
+    // --- MEDIA PLAYER BLOCK ---
+    "group/media": {
+        "orientation": "vertical",
+        "modules": [
+            "group/controls", 
+            "custom/mpris-scroll" 
+        ]
+    },
+
+    "group/controls": {
+        "orientation": "horizontal",
+        "modules": [
+            "custom/record",
+            "custom/prev",
+            "custom/playpause",
+            "custom/next"
+        ]
+    },
+
+    "custom/mpris-scroll": {
+        "format": "{}",
+        "return-type": "json",
+        "exec": "~/.config/waybar/scroll_media.sh",
+        "tail": true,
+        "tooltip": false
+    },
+
+    "custom/record": {
+        "format": "{}",
+        "return-type": "json",
+        "exec": "playerctl -a metadata --format '{\"text\": \"󰓇\", \"class\": \"{{status}}\"}' -F",
+        "tooltip": false
+    },
+
+    "custom/prev": {
+        "format": " 󰒮 ",
+        "on-click": "playerctl previous",
+        "tooltip": false
+    },
+
+    "custom/playpause": {
+        "format": " {icon} ",
+        "return-type": "json",
+        "exec": "playerctl -a metadata --format '{\"text\": \"{{status}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
+        "on-click": "playerctl play-pause",
+        "format-icons": {
+            "Playing": "󰏤",
+            "Paused": "󰐊"
+        },
+        "tooltip": false
+    },
+
+    "custom/next": {
+        "format": " 󰒭 ",
+        "on-click": "playerctl next",
+        "tooltip": false
+    },
+
+    // --- HARDWARE MODULES ---
+    "cpu": {
+        "format": "{usage}% ",
+        "tooltip": false
+    },
+    "memory": {
+        "format": "{}% "
+    },
+    "temperature": {
+        "critical-threshold": 80,
+        "format": "{temperatureC}°C {icon}",
+        "format-icons": ["", "", ""]
+    },
+    
+    // --- AUDIO & BRIGHTNESS ---
+    "backlight": {
+        "device": "intel_backlight",
+        "format": "{icon} {percent}%",
+        "format-icons": ["󰃞", "󰃟", "󰃠"],
+        "on-scroll-up": "swayosd-client --brightness raise",
+        "on-scroll-down": "swayosd-client --brightness lower",
+        "smooth-scrolling-threshold": 1
+    },
+    
+    "pulseaudio": {
+        "format": "{volume}% {icon} {format_source}",
+        "format-bluetooth": "{volume}% {icon} {format_source}",
+        "format-bluetooth-muted": " {icon} {format_source}",
+        "format-muted": " {format_source}",
+        "format-source": "{volume}% ",
+        "format-source-muted": "",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol"
+    },
+
+    // --- POWER & TRAY ---
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{capacity}% {icon}",
+        "format-full": "{capacity}% {icon}",
+        "format-charging": "{capacity}% ",
+        "format-plugged": "{capacity}% ",
+        "format-alt": "{time} {icon}",
+        "format-icons": ["", "", "", "", ""]
+    },
+
+    "power-profiles-daemon": {
+      "format": "{icon}",
+      "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+      "tooltip": true,
+      "format-icons": {
+        "default": "",
+        "performance": "",
+        "balanced": "",
+        "power-saver": ""
+      }
+    },
+
+    "tray": {
+        "spacing": 10
+    },
+
+    "custom/power": {
+        "format": "⏻", 
+        "tooltip": false,
+        "menu": "on-click",
+        "on-click": "",
+        "menu-file": "$HOME/.config/waybar/power_menu.xml",
+        "menu-actions": {
+            "lock": "hyperlock",
+            "sleep": "systemctl suspend",    
+            "reboot": "systemctl reboot",
+            "shutdown": "systemctl poweroff"
+        }
+    }
+}
